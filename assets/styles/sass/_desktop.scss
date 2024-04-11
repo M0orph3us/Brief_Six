@@ -6,6 +6,34 @@ header {
   .navbar-mobile {
     display: none;
   }
+  .navbar-desktop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    padding: 0 20px;
+    a,
+    .menu-mobile-container > li > a {
+      color: $text-color;
+      font-weight: bold;
+      font-size: large;
+      text-transform: uppercase;
+      &:hover {
+        color: #ca0636;
+      }
+    }
+    img {
+      height: 45px;
+      margin-bottom: 10px;
+    }
+    .menu-mobile-container {
+      width: max-content;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 115px;
+    }
+  }
 }
 
 /*//////////////////////////////////// MAIN //////////////////////////////////////////////*/

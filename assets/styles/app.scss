@@ -99,8 +99,11 @@ body {
 
 /*//////////////////////////////////// HEADER ////////////////////////////////////////////*/
 header {
+  background-color: $navbar-bg-color;
+  .navbar-desktop {
+    display: none;
+  }
   .navbar-mobile {
-    background-color: $navbar-bg-color;
     height: 60px;
     display: flex;
     align-items: center;
@@ -119,10 +122,8 @@ header {
     i {
       color: $text-color;
     }
-    .icons-container {
-      .fa-magnifying-glass {
-        margin-right: 20px;
-      }
+    .icons-container > .fa-magnifying-glass {
+      margin-right: 20px;
     }
   }
   .menu-burger-container {

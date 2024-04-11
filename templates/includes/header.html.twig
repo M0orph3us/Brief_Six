@@ -1,13 +1,24 @@
 <header id="header">
 	<nav class="navbar-mobile">
 		<i class="fa-solid fa-bars fa-xl" id="burger-menu"></i>
-		<a href=""><img src="{{ asset('imgs/logo_mobile.webp')}}" alt="logo" draggable="false"></a>
+		<a href="/"><img src="{{ asset('imgs/logo_mobile.webp')}}" alt="logo mobile" draggable="false"></a>
 		<div class="icons-container">
 			<i class="fa-solid fa-magnifying-glass fa-xl" id="search"></i>
 			<i class="fa-solid fa-user fa-xl">
-				<a href="/"></a>
+				<a href=""></a>
 			</i>
 		</div>
 	</nav>
-	<nav class="navbar-desktop"></nav>
+	<nav class="navbar-desktop">
+		<a href="/"><img src="{{ asset('imgs/logo_desktop.webp')}}" alt="logo desktop"></a>
+		<ul class="menu-mobile-container">
+			<li>
+				<a href="/">home</a>
+			</li>
+			<li>
+				<a href="">created thread</a>
+			</li>
+		</ul>
+		<a href="">login</a>
+	</nav>
 </header>
