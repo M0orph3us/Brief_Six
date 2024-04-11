@@ -27,6 +27,6 @@ return RectorConfig::configure()
         codeQuality: true
     );
 
-return static function (Config\RectorConfig $rectorConfig): void {
-    $rectorConfig->import('vendor/fakerphp/faker/rector-migrate.php');
-};
+// return static function (Config\RectorConfig $rectorConfig): void {
+//     $rectorConfig->import('vendor/fakerphp/faker/rector-migrate.php');
+// };
