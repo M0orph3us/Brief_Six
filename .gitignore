@@ -35,3 +35,7 @@ yarn-error.log
 ###< VSC folder ###
 /.vscode
 ### VSC folder >###
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
