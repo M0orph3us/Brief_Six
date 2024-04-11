@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategoriesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,17 @@ class Categories
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
+
+    /**
+     * @var Collection<int, Threads>
+     */
+    #[ORM\ManyToMany(targetEntity: Threads::class, mappedBy: 'categories')]
+    private Collection $threads;
+
+    public function __construct()
+    {
+        $this->threads = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +88,33 @@ class Categories
     public function setUpdatedAt(\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Threads>
+     */
+    public function getThreads(): Collection
+    {
+        return $this->threads;
+    }
+
+    public function addThread(Threads $thread): static
+    {
+        if (!$this->threads->contains($thread)) {
+            $this->threads->add($thread);
+            $thread->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThread(Threads $thread): static
+    {
+        if ($this->threads->removeElement($thread)) {
+            $thread->removeCategory($this);
+        }
 
         return $this;
     }

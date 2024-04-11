@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -40,6 +42,32 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
+
+    /**
+     * @var Collection<int, Votes>
+     */
+    #[ORM\OneToMany(targetEntity: Votes::class, mappedBy: 'user')]
+    private Collection $votes;
+
+    /**
+     * @var Collection<int, Threads>
+     */
+    #[ORM\OneToMany(targetEntity: Threads::class, mappedBy: 'users')]
+    private Collection $threads;
+
+    /**
+     * @var Collection<int, Responses>
+     */
+    #[ORM\OneToMany(targetEntity: Responses::class, mappedBy: 'users')]
+    private Collection $responses;
+
+    public function __construct()
+    {
+        $this->votes = new ArrayCollection();
+        $this->threads = new ArrayCollection();
+        $this->responses = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -148,6 +176,96 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Votes>
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Votes $vote): static
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes->add($vote);
+            $vote->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Votes $vote): static
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getUser() === $this) {
+                $vote->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Threads>
+     */
+    public function getThreads(): Collection
+    {
+        return $this->threads;
+    }
+
+    public function addThread(Threads $thread): static
+    {
+        if (!$this->threads->contains($thread)) {
+            $this->threads->add($thread);
+            $thread->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThread(Threads $thread): static
+    {
+        if ($this->threads->removeElement($thread)) {
+            // set the owning side to null (unless already changed)
+            if ($thread->getUsers() === $this) {
+                $thread->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Responses>
+     */
+    public function getResponses(): Collection
+    {
+        return $this->responses;
+    }
+
+    public function addResponse(Responses $response): static
+    {
+        if (!$this->responses->contains($response)) {
+            $this->responses->add($response);
+            $response->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponse(Responses $response): static
+    {
+        if ($this->responses->removeElement($response)) {
+            // set the owning side to null (unless already changed)
+            if ($response->getUsers() === $this) {
+                $response->setUsers(null);
+            }
+        }
 
         return $this;
     }

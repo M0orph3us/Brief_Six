@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ThreadsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,28 @@ class Threads
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
+
+    #[ORM\ManyToOne(inversedBy: 'threads')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $users = null;
+
+    /**
+     * @var Collection<int, Responses>
+     */
+    #[ORM\OneToMany(targetEntity: Responses::class, mappedBy: 'threads')]
+    private Collection $responses;
+
+    /**
+     * @var Collection<int, Categories>
+     */
+    #[ORM\ManyToMany(targetEntity: Categories::class, inversedBy: 'threads')]
+    private Collection $categories;
+
+    public function __construct()
+    {
+        $this->responses = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +129,72 @@ class Threads
     public function setUpdatedAt(\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): static
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Responses>
+     */
+    public function getResponses(): Collection
+    {
+        return $this->responses;
+    }
+
+    public function addResponse(Responses $response): static
+    {
+        if (!$this->responses->contains($response)) {
+            $this->responses->add($response);
+            $response->setThreads($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponse(Responses $response): static
+    {
+        if ($this->responses->removeElement($response)) {
+            // set the owning side to null (unless already changed)
+            if ($response->getThreads() === $this) {
+                $response->setThreads(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Categories>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categories $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categories $category): static
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }

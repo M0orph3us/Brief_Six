@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResponsesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,25 @@ class Responses
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
+
+    /**
+     * @var Collection<int, Votes>
+     */
+    #[ORM\OneToMany(targetEntity: Votes::class, mappedBy: 'responses')]
+    private Collection $votes;
+
+    #[ORM\ManyToOne(inversedBy: 'responses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $users = null;
+
+    #[ORM\ManyToOne(inversedBy: 'responses')]
+    private ?Threads $threads = null;
+
+    public function __construct()
+    {
+        $this->votes = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -60,6 +81,60 @@ class Responses
     public function setUpdatedAt(\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Votes>
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Votes $vote): static
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes->add($vote);
+            $vote->setResponses($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Votes $vote): static
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getResponses() === $this) {
+                $vote->setResponses(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): static
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    public function getThreads(): ?Threads
+    {
+        return $this->threads;
+    }
+
+    public function setThreads(?Threads $threads): static
+    {
+        $this->threads = $threads;
 
         return $this;
     }
