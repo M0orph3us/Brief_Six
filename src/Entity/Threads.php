@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ThreadsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,28 +31,6 @@ class Threads
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
-
-    #[ORM\ManyToOne(inversedBy: 'threads')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Users $user_id = null;
-
-    /**
-     * @var Collection<int, Categories>
-     */
-    #[ORM\ManyToMany(targetEntity: Categories::class, inversedBy: 'threads')]
-    private Collection $categories;
-
-    /**
-     * @var Collection<int, Responses>
-     */
-    #[ORM\OneToMany(targetEntity: Responses::class, mappedBy: 'thread_id')]
-    private Collection $responses;
-
-    public function __construct()
-    {
-        $this->categories = new ArrayCollection();
-        $this->responses = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -129,72 +105,6 @@ class Threads
     public function setUpdatedAt(\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    public function getUserId(): ?Users
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?Users $user_id): static
-    {
-        $this->user_id = $user_id;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Categories>
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Categories $category): static
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Categories $category): static
-    {
-        $this->categories->removeElement($category);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Responses>
-     */
-    public function getResponses(): Collection
-    {
-        return $this->responses;
-    }
-
-    public function addResponse(Responses $response): static
-    {
-        if (!$this->responses->contains($response)) {
-            $this->responses->add($response);
-            $response->setThreadId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeResponse(Responses $response): static
-    {
-        if ($this->responses->removeElement($response)) {
-            // set the owning side to null (unless already changed)
-            if ($response->getThreadId() === $this) {
-                $response->setThreadId(null);
-            }
-        }
 
         return $this;
     }
