@@ -21,15 +21,19 @@ export function burgerMenu() {
 
   const ulCreate = document.createElement("ul");
 
+  const urlHome = document.querySelector("#url-home").getAttribute("data-url");
   const liHome = document.createElement("li");
   const aHome = document.createElement("a");
-  aHome.href = "/";
+  aHome.href = urlHome;
   aHome.textContent = "home";
   liHome.append(aHome);
 
+  const urlCreateThread = document
+    .querySelector("#url-createdThread")
+    .getAttribute("data-url");
   const liThread = document.createElement("li");
   const aThread = document.createElement("a");
-  aThread.href = "";
+  // aThread.href = urlCreateThread;
   aThread.textContent = "create thread";
   liThread.append(aThread);
 

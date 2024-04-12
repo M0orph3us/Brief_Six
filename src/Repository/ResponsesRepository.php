@@ -21,6 +21,10 @@ class ResponsesRepository extends ServiceEntityRepository
         parent::__construct($registry, Responses::class);
     }
 
+    public function numberOfResponses()
+    {
+    }
+
     //    /**
     //     * @return Responses[] Returns an array of Responses objects
     //     */

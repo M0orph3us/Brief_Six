@@ -1,2 +1,24 @@
-@mixin template-btn() {
+@mixin template-card-mobile() {
+  border: solid 3px $border-color;
+  display: flex;
+  background-color: $cards-bg-color;
+  flex-direction: column;
+  border-radius: 15px;
+  h3:not([class]) {
+    padding: 10px 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    color: $title-color;
+    background-color: $title-cards-bg-color;
+    text-align: center;
+  }
+  p {
+    color: $text-color;
+    padding: 10px;
+    span {
+      color: $text-color;
+      text-transform: capitalize;
+      font-weight: bold;
+    }
+  }
 }

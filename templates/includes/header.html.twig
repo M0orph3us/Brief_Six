@@ -10,13 +10,13 @@
 		</div>
 	</nav>
 	<nav class="navbar-desktop">
-		<a href="/"><img src="{{ asset('imgs/logo_desktop.webp')}}" alt="logo desktop" draggable="false"></a>
+		<a href="{{ path('home') }}"><img src="{{ asset('imgs/logo_desktop.webp')}}" alt="logo desktop" draggable="false"></a>
 		<ul class="menu-mobile-container">
 			<li>
-				<a href="/">home</a>
+				<a href="{{ path('home') }}" data-url="{{ path('home') }}" id="url-home">home</a>
 			</li>
 			<li>
-				<a href="">created thread</a>
+				<a href="" data-url="" id="url-createdThread">created thread</a>
 			</li>
 		</ul>
 		<i class="fa-solid fa-user fa-2xl">

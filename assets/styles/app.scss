@@ -54,6 +54,7 @@ ul {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 /* 7. Create a root stacking context */
@@ -190,6 +191,19 @@ header {
 
 main {
   flex: 1;
+  .threads-cards-container {
+    padding: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(1, 80vw);
+    row-gap: 40px;
+    justify-content: center;
+    a:not([class]) {
+      color: $border-color;
+    }
+    .thread-card {
+      @include template-card-mobile;
+    }
+  }
 }
 
 /*//////////////////////////////////// FOOTER ////////////////////////////////////////////*/

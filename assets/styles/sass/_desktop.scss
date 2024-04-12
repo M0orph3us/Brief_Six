@@ -37,5 +37,18 @@ header {
 }
 
 /*//////////////////////////////////// MAIN //////////////////////////////////////////////*/
-
+main {
+  .threads-cards-container {
+    row-gap: 50px;
+    .thread-card {
+      box-shadow: 0px 0px 0px 0px;
+      transition: box-shadow 1.5s;
+      &:hover {
+        box-shadow: 0px 0px 20px 10px;
+        transition: box-shadow 0.5s;
+        cursor: pointer;
+      }
+    }
+  }
+}
 /*//////////////////////////////////// FOOTER ////////////////////////////////////////////*/

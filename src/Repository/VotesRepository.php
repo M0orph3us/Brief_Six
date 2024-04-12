@@ -21,6 +21,10 @@ class VotesRepository extends ServiceEntityRepository
         parent::__construct($registry, Votes::class);
     }
 
+    public function numberOfVotes()
+    {
+    }
+
     //    /**
     //     * @return Votes[] Returns an array of Votes objects
     //     */

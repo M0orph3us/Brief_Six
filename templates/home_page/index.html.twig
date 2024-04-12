@@ -4,5 +4,36 @@
 {% endblock %}
 
 {% block main %}
-	<main></main>
-{% endblock %}
+	<main>
+		<div class="threads-cards-container">
+			{% for thread in threads %}
+				<a href="">
+					<div class="thread-card">
+						<h3>{{ thread.title }}</h3>
+						<p>
+							<span>description :
+							</span>
+							{{ thread.description }}
+						</p>
+						<p>
+							<span>responses :
+							</span>
+							{{ thread.responses|length }}
+						</p>
+						{% if thread.status == 'Open' %}
+							<p style="color: #58b201">
+							{% elseif thread.status == 'Close' %}
+								<p style="color: #f66031">
+								{% else %}
+									<p style="color: #e4606b">
+									{% endif %}
+									<span>status :
+									</span>
+									{{ thread.status }}
+								</p>
+							</div>
+						</a>
+					{% endfor %}
+				</div>
+			</main>
+		{% endblock %}
