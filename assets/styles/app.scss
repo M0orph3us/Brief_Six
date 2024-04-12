@@ -99,6 +99,9 @@ body {
 
 /*//////////////////////////////////// HEADER ////////////////////////////////////////////*/
 header {
+  i[class] {
+    color: $text-color;
+  }
   background-color: $navbar-bg-color;
   .navbar-desktop {
     display: none;
@@ -118,9 +121,6 @@ header {
       margin-left: 25px;
       margin-bottom: 8px;
       height: 45px;
-    }
-    i {
-      color: $text-color;
     }
     .icons-container > .fa-magnifying-glass {
       margin-right: 20px;
@@ -161,18 +161,18 @@ header {
       position: absolute;
       top: 30px;
       left: 26px;
-      color: $text-color;
     }
     .menu-mobile-container {
       position: absolute;
       width: max-content;
+      height: auto;
       transform: translateX(calc(-50% + 19px));
       left: 50%;
       top: 25%;
       ul {
         display: flex;
         flex-direction: column;
-        row-gap: 60px;
+        row-gap: 115px;
         li {
           a {
             font-size: x-large;

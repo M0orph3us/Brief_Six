@@ -33,19 +33,19 @@ export function burgerMenu() {
   aThread.textContent = "create thread";
   liThread.append(aThread);
 
-  const liProfil = document.createElement("li");
-  const aProfil = document.createElement("a");
-  aProfil.href = "";
-  aProfil.textContent = "profil";
-  liProfil.append(aProfil);
+  // const liProfil = document.createElement("li");
+  // const aProfil = document.createElement("a");
+  // aProfil.href = "";
+  // aProfil.textContent = "profil";
+  // liProfil.append(aProfil);
 
-  const liLogout = document.createElement("li");
-  const aLogout = document.createElement("a");
-  aLogout.href = "";
-  aLogout.textContent = "logout";
-  liLogout.append(aLogout);
+  // const liLogout = document.createElement("li");
+  // const aLogout = document.createElement("a");
+  // aLogout.href = "";
+  // aLogout.textContent = "logout";
+  // liLogout.append(aLogout);
 
-  ulCreate.append(liHome, liThread, liProfil, liLogout);
+  ulCreate.append(liHome, liThread);
   menuMobileContainer.append(ulCreate);
   divMenuBurgerContainer.append(XIcon, menuMobileContainer);
 
