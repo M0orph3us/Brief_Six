@@ -103,11 +103,16 @@ header {
   i[class] {
     color: $text-color;
   }
-  background-color: $navbar-bg-color;
   .navbar-desktop {
     display: none;
   }
   .navbar-mobile {
+    z-index: 1;
+    background-color: $navbar-bg-color;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 60px;
     display: flex;
     align-items: center;
@@ -128,8 +133,8 @@ header {
     }
   }
   .menu-burger-container {
-    z-index: 1;
-    position: absolute;
+    z-index: 2;
+    position: fixed;
     left: 0;
     top: 0;
     display: flex;
@@ -191,6 +196,7 @@ header {
 
 main {
   flex: 1;
+  margin-top: 60px;
   .threads-cards-container {
     padding: 20px 0;
     display: grid;
@@ -208,15 +214,19 @@ main {
 
 /*//////////////////////////////////// FOOTER ////////////////////////////////////////////*/
 footer {
-  position: relative;
+  border-top-right-radius: 10px;
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: $footer-bg-color;
-  height: 120px;
+  height: max-content;
   .social-network-container {
     padding-top: 7px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 10px;
     h4 {
       text-transform: uppercase;
       color: $text-color;

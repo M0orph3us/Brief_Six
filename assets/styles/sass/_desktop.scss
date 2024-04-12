@@ -7,13 +7,18 @@ header {
     display: none;
   }
   .navbar-desktop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $navbar-bg-color;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100px;
     padding: 0 20px;
     a,
-    .menu-mobile-container > li > a {
+    .menu-desktop-container > li > a {
       color: $text-color;
       font-weight: bold;
       font-size: large;
@@ -26,7 +31,7 @@ header {
       height: 50px;
       margin-bottom: 10px;
     }
-    .menu-mobile-container {
+    .menu-desktop-container {
       width: max-content;
       display: flex;
       flex-direction: row;
