@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Thread Detail
+{% endblock %}
+
+{% block main %}
+	<main>
+		<div class="thread-detail-container">
+			<div class="thread-detail-card">
+				<h3>{{ thread.title }}</h3>
+				<a href="">
+					<p>
+						<span>author :
+						</span>
+						{{ username }}
+					</p>
+				</a>
+				{% if thread.status == 'Open' %}
+					<p style="color: #58b201">
+					{% elseif thread.status == 'Close' %}
+						<p style="color: #f66031">
+						{% else %}
+							<p style="color: #e4606b">
+							{% endif %}
+							{{ thread.status }}
+						</p>
+						<p>
+							<span>categories :
+							</span>
+							{{ categories|join(',', 'and') }}
+						</p>
+						<p>
+							<span>sujet :
+							</span>
+							{{ thread.body }}
+						</p>
+						<p>
+							<span>created at :
+							</span>
+							{{ thread.createdAt|date('H:i d/m/Y') }}
+						</p>
+						<p>
+							<span>updated at :
+							</span>
+							{{ thread.updatedAt|date('H:i d/m/Y') }}
+						</p>
+						<div class="actions-container">
+							<ul>
+								<li>
+									<button id="btn-reply">reply</button>
+								</li>
+								<li>
+									<a href="">edit</a>
+								</li>
+								<li>
+									<a href="">delete</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="thread-responses-container">
+						<h3>responses :
+						</h3>
+						<div class="thread-response-card">
+							{% for response in responses %}
+								<a href="">
+									<span>author :
+									</span>
+									{{ (response.users).username }}</a>
+								<i class="fa-regular fa-heart fa-xl"></i>
+								<h4>reponse :
+								</h4>
+								<p>{{ response.body }}</p>
+							{% endfor %}
+							<div class="actions-response-container">
+								<ul>
+									<li><a href="">edit</a></li>
+									<li><a href="">delete</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		{% endblock %}

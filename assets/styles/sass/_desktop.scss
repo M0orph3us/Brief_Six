@@ -7,6 +7,7 @@ header {
     display: none;
   }
   .navbar-desktop {
+    z-index: 1;
     position: fixed;
     top: 0;
     left: 0;
@@ -43,6 +44,7 @@ header {
 
 /*//////////////////////////////////// MAIN //////////////////////////////////////////////*/
 main {
+  margin-top: 150px;
   .threads-cards-container {
     row-gap: 50px;
     .thread-card {

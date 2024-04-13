@@ -1,5 +1,5 @@
-@mixin template-card-mobile() {
-  border: solid 3px $border-color;
+@mixin template-card() {
+  border: solid 2px $border-color;
   display: flex;
   background-color: $cards-bg-color;
   flex-direction: column;
@@ -14,7 +14,7 @@
   }
   p {
     color: $text-color;
-    padding: 10px;
+    padding: 5px 20px;
     span {
       color: $text-color;
       text-transform: capitalize;

@@ -54,7 +54,6 @@ ul {
 
 a {
   text-decoration: none;
-  color: inherit;
 }
 
 /* 7. Create a root stacking context */
@@ -196,7 +195,7 @@ header {
 
 main {
   flex: 1;
-  margin-top: 60px;
+  margin-top: 80px;
   .threads-cards-container {
     padding: 20px 0;
     display: grid;
@@ -207,7 +206,107 @@ main {
       color: $border-color;
     }
     .thread-card {
-      @include template-card-mobile;
+      @include template-card;
+    }
+  }
+  .thread-detail-container {
+    padding: 20px 60px;
+    .thread-detail-card {
+      position: relative;
+      @include template-card;
+      row-gap: 20px;
+      .actions-container {
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        padding: 20px;
+        background-color: #18191b7a;
+        ul {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          li {
+            background-color: $crud-color;
+            border-radius: 5px;
+            border: 2px solid $text-color;
+            padding: 10px 5px;
+            a,
+            button {
+              cursor: pointer;
+              border: none;
+              color: $text-color;
+              background-color: inherit;
+              text-transform: uppercase;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+    .thread-detail-card > p:nth-child(3) {
+      position: absolute;
+      top: 7px;
+      right: 0;
+    }
+
+    .thread-responses-container {
+      padding-top: 30px;
+      h3 {
+        padding: 20px 0;
+        color: $text-color;
+        text-transform: capitalize;
+        font-weight: bold;
+        text-align: center;
+      }
+      .thread-response-card {
+        background-color: $cards-bg-color;
+        border: 2px solid $border-color;
+        border-radius: 15px;
+        padding-top: 20px;
+        i {
+          float: right;
+          margin-right: 20px;
+          margin-top: 10px;
+          cursor: pointer;
+          color: $text-color;
+        }
+        p {
+          color: $text-color;
+          padding: 10px 20px;
+        }
+        h4,
+        a {
+          padding: 10px 20px;
+          color: $text-color;
+          text-transform: capitalize;
+          font-weight: bold;
+        }
+        .actions-response-container {
+          background-color: #18191b7a;
+          margin-top: 20px;
+          padding: 20px 0;
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+          ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            li {
+              background-color: $crud-color;
+              border-radius: 5px;
+              border: 2px solid $text-color;
+              padding: 10px 5px;
+              a {
+                cursor: pointer;
+                border: none;
+                color: $text-color;
+                background-color: inherit;
+                text-transform: uppercase;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -215,8 +314,8 @@ main {
 /*//////////////////////////////////// FOOTER ////////////////////////////////////////////*/
 footer {
   border-top-right-radius: 10px;
+  position: relative;
   z-index: 1;
-  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;

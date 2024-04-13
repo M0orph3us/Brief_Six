@@ -7,7 +7,7 @@
 	<main>
 		<div class="threads-cards-container">
 			{% for thread in threads %}
-				<a href="">
+				<a href="{{ path('threads', {id: thread.id}) }}">
 					<div class="thread-card">
 						<h3>{{ thread.title }}</h3>
 						<p>
