@@ -313,14 +313,10 @@ main {
 
 /*//////////////////////////////////// FOOTER ////////////////////////////////////////////*/
 footer {
-  border-top-right-radius: 10px;
-  position: relative;
   z-index: 1;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background-color: $footer-bg-color;
   height: max-content;
+  position: relative;
   .social-network-container {
     padding-top: 7px;
     display: flex;

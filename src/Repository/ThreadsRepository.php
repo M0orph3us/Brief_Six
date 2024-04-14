@@ -45,4 +45,8 @@ class ThreadsRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findByMaxResponses()
+    {
+    }
 }
