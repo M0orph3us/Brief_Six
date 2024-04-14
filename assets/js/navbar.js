@@ -1,4 +1,4 @@
-export function burgerMenu() {
+export function createBurgerMenu() {
   const headerTarget = document.querySelector("#header");
 
   const divMenuBurgerContainer = document.createElement("div");
@@ -8,12 +8,6 @@ export function burgerMenu() {
   XIcon.classList.add("fa-solid", "fa-xmark", "fa-2xl");
   XIcon.addEventListener("click", () => {
     divMenuBurgerContainer.remove();
-    // divMenuBurgerContainer.style.animationName = "RightToLeft";
-    // divMenuBurgerContainer.style.animationDuration = "0.5s";
-    // divMenuBurgerContainer.style.animationTimingFunction = "ease-in";
-    // setTimeout(() => {
-    //   headerTarget.removeChild(divMenuBurgerContainer);
-    // }, 499);
   });
 
   const menuMobileContainer = document.createElement("div");
@@ -37,18 +31,6 @@ export function burgerMenu() {
   aThread.textContent = "create thread";
   liThread.append(aThread);
 
-  // const liProfil = document.createElement("li");
-  // const aProfil = document.createElement("a");
-  // aProfil.href = "";
-  // aProfil.textContent = "profil";
-  // liProfil.append(aProfil);
-
-  // const liLogout = document.createElement("li");
-  // const aLogout = document.createElement("a");
-  // aLogout.href = "";
-  // aLogout.textContent = "logout";
-  // liLogout.append(aLogout);
-
   ulCreate.append(liHome, liThread);
   menuMobileContainer.append(ulCreate);
   divMenuBurgerContainer.append(XIcon, menuMobileContainer);
@@ -56,5 +38,22 @@ export function burgerMenu() {
   const btnBurger = document.querySelector("#burger-menu");
   btnBurger.addEventListener("click", () => {
     headerTarget.prepend(divMenuBurgerContainer);
+  });
+}
+
+export function profilContainer() {
+  const profilContainer = document.querySelector("#profil-container");
+  const allBtnProfil = document.querySelectorAll(".fa-user");
+  let arrayBtnProfil = [];
+  arrayBtnProfil = [...allBtnProfil];
+  arrayBtnProfil.forEach((btnProfil) => {
+    btnProfil.addEventListener("click", () => {
+      const display = window.getComputedStyle(profilContainer).display;
+      if (display === "none") {
+        profilContainer.style.display = "block";
+      } else if (display === "block") {
+        profilContainer.style.display = "none";
+      }
+    });
   });
 }

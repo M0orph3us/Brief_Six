@@ -6,5 +6,8 @@
  * which should already be in your base.html.twig.
  */
 // import "./styles/app.scss";
-import { burgerMenu } from "./js/burgerMenu.js";
-burgerMenu();
+
+// Navbar
+import { createBurgerMenu, profilContainer } from "./js/navbar.js";
+createBurgerMenu();
+profilContainer();

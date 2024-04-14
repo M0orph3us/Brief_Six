@@ -3,10 +3,8 @@
 		<i class="fa-solid fa-bars fa-xl" id="burger-menu"></i>
 		<a href="/"><img src="{{ asset('imgs/logo_mobile.webp')}}" alt="logo mobile" draggable="false"></a>
 		<div class="icons-container">
-			<i class="fa-solid fa-magnifying-glass fa-xl" id="search"></i>
-			<i class="fa-solid fa-user fa-xl">
-				<a href=""></a>
-			</i>
+			<i class="fa-solid fa-magnifying-glass fa-xl"></i>
+			<i class="fa-solid fa-user fa-xl"></i>
 		</div>
 	</nav>
 	<nav class="navbar-desktop">
@@ -19,8 +17,21 @@
 				<a href="" data-url="" id="url-createdThread">created thread</a>
 			</li>
 		</ul>
-		<i class="fa-solid fa-user fa-2xl">
-			<a href=""></a>
-		</i>
+		<div class="icons-container">
+			<i class="fa-solid fa-magnifying-glass fa-xl"></i>
+			<i class="fa-solid fa-user fa-xl"></i>
+		</div>
 	</nav>
+	<div class="profil-container" id="profil-container">
+		<ul>
+			<li>
+				<a href="{{ path('app_login') }}">login</a>
+			</li>
+			{# <li><ahref="{{ path('profil') }}">profil</a></li> #}
+			<li>
+				<a href="{{ path('app_logout') }}">logout</a>
+			</li>
+
+		</ul>
+	</div>
 </header>

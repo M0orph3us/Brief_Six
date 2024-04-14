@@ -10,11 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -24,6 +24,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank()]
+    #[Assert\Email()]
+    #[Assert\Length(min: 5)]
+    #[Assert\Unique()]
     private ?string $email = null;
 
     /**
@@ -36,15 +40,25 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 5)]
+    #[Assert\Regex('^(?=.*[0-9])(?=.*[A-Z])(?=.*[\W_]).+$
+    ')]
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 3, max: 10)]
+    #[Assert\Unique()]
     private ?string $username = null;
 
     #[ORM\Column]
+    #[Assert\NotNull()]
+    #[Assert\DateTime()]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\DateTime()]
     private ?\DateTimeInterface $updated_at = null;
 
     /**

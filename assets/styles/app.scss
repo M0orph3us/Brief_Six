@@ -99,6 +99,7 @@ body {
 
 /*//////////////////////////////////// HEADER ////////////////////////////////////////////*/
 header {
+  position: relative;
   i[class] {
     color: $text-color;
   }
@@ -188,6 +189,31 @@ header {
         }
       }
     }
+  }
+  .profil-container {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    width: max-content;
+    padding: 25px;
+    border-bottom-left-radius: 5px;
+    background-color: $navbar-bg-color;
+    ul {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      li > a {
+        cursor: pointer;
+        color: $text-color;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+  }
+  .icons-container > .fa-magnifying-glass {
+    margin-right: 20px;
   }
 }
 

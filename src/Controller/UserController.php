@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/profil/{username}', name: 'user_profil')]
+    #[Route('/profil/{username}', name: 'profil')]
     public function index(string $username, UsersRepository $usersRepo): Response
     {
         $userProfil = $usersRepo->findOneBy(["username" => $username]);
