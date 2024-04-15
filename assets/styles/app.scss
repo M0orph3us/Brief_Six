@@ -251,16 +251,14 @@ main {
           align-items: center;
           justify-content: space-around;
           li {
-            background-color: $crud-color;
-            border-radius: 5px;
-            border: 2px solid $text-color;
-            padding: 10px 5px;
             a,
             button {
               cursor: pointer;
-              border: none;
+              border-radius: 5px;
+              border: 2px solid $text-color;
+              padding: 10px 20px;
               color: $text-color;
-              background-color: inherit;
+              background-color: $crud-color;
               text-transform: uppercase;
               font-weight: bold;
             }
@@ -333,6 +331,42 @@ main {
           }
         }
       }
+    }
+  }
+  .form-template {
+    margin: 40px auto;
+    background-color: $cards-bg-color;
+    padding: 20px;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    border: solid 2px $border-color;
+    border-radius: 15px;
+    .checkbox {
+      display: flex;
+      justify-content: space-between;
+      span > a {
+        text-transform: capitalize;
+      }
+    }
+    h1 {
+      text-align: center;
+    }
+    h1,
+    label {
+      color: $text-color;
+    }
+    button {
+      border: 2px solid $text-color;
+      border-radius: 5px;
+      width: max-content;
+      padding: 5px 10px;
+      align-self: center;
+      text-transform: uppercase;
+      color: $text-color;
+      font-weight: bold;
+      background-color: $valid-color;
     }
   }
 }

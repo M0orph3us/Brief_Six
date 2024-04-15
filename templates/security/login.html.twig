@@ -5,7 +5,7 @@
 
 {% block main %}
 	<main>
-		<form method="post">
+		<form class="form-template" method="post">
 			{% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 			{% endif %}
@@ -31,7 +31,11 @@
 					<input type="checkbox" name="_remember_me">
 					Remember me
 				</label>
+				<span>
+					<a href="{{ path('register') }}">register</a>
+				</span>
 			</div>
+
 
 			<button class="btn btn-lg btn-primary" type="submit">
 				Sign in

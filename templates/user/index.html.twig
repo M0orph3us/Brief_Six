@@ -5,6 +5,19 @@
 
 {% block main %}
 	<main>
-		<h1>HELLO</h1>
+		<div class="profil-container">
+			<h3>{{ user.username}}</h3>
+			{% if user.roles == ['ROLE_ADMIN'] %}
+				<p>role : admin</p>
+			{% else %}
+				<p>role : user</p>
+			{% endif %}
+			<p>created at :
+				{{ user.createdAt|date('d/m/Y') }}</p>
+			<p>threads :
+				{{ user.threads|length}}</p>
+			<p>responses :
+				{{ user.responses|length}}</p>
+		</div>
 	</main>
 {% endblock %}

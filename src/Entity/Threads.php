@@ -38,11 +38,10 @@ class Threads
     private ?string $body = null;
 
     #[ORM\Column]
-    #[Assert\NotNull()]
     #[Assert\DateTime()]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Assert\DateTime()]
     private ?\DateTimeInterface $updated_at = null;
 

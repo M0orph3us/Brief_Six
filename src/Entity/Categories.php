@@ -32,7 +32,7 @@ class Categories
     #[Assert\DateTime()]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Assert\DateTime()]
     private ?\DateTimeInterface $updated_at = null;
 

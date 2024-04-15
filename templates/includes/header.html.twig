@@ -13,9 +13,11 @@
 			<li>
 				<a href="{{ path('home') }}" data-url="{{ path('home') }}" id="url-home">home</a>
 			</li>
-			<li>
-				<a href="" data-url="" id="url-createdThread">created thread</a>
-			</li>
+			{% if app.user %}
+				<li>
+					<a href="" data-url="" id="url-createdThread">created thread</a>
+				</li>
+			{% endif %}
 		</ul>
 		<div class="icons-container">
 			<i class="fa-solid fa-magnifying-glass fa-xl"></i>
@@ -24,14 +26,18 @@
 	</nav>
 	<div class="profil-container" id="profil-container">
 		<ul>
-			<li>
-				<a href="{{ path('app_login') }}">login</a>
-			</li>
-			{# <li><ahref="{{ path('profil') }}">profil</a></li> #}
-			<li>
-				<a href="{{ path('app_logout') }}">logout</a>
-			</li>
-
+			{% if app.user %}
+				<li>
+					<a href="{{path('profil', {username: app.user.username})}}">profil</a>
+				</li>
+				<li>
+					<a href="{{ path('app_logout') }}">logout</a>
+				</li>
+			{% else %}
+				<li>
+					<a href="{{ path('app_login') }}">login</a>
+				</li>
+			{% endif %}
 		</ul>
 	</div>
 </header>

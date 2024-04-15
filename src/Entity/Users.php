@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -27,7 +28,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank()]
     #[Assert\Email()]
     #[Assert\Length(min: 5)]
-    #[Assert\Unique()]
     private ?string $email = null;
 
     /**
@@ -42,22 +42,20 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 5)]
-    #[Assert\Regex('^(?=.*[0-9])(?=.*[A-Z])(?=.*[\W_]).+$
+    #[Assert\Regex('^(?=.*[0-9])(?=.*[A-Z])(?=.*[\W_]).+$^
     ')]
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 3, max: 10)]
-    #[Assert\Unique()]
     private ?string $username = null;
 
     #[ORM\Column]
-    #[Assert\NotNull()]
     #[Assert\DateTime()]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Assert\DateTime()]
     private ?\DateTimeInterface $updated_at = null;
 

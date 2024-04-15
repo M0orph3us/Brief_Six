@@ -22,9 +22,9 @@ export function createBurgerMenu() {
   aHome.textContent = "home";
   liHome.append(aHome);
 
-  const urlCreateThread = document
-    .querySelector("#url-createdThread")
-    .getAttribute("data-url");
+  // const urlCreateThread = document
+  //   .querySelector("#url-createdThread")
+  //   .getAttribute("data-url");
   const liThread = document.createElement("li");
   const aThread = document.createElement("a");
   // aThread.href = urlCreateThread;

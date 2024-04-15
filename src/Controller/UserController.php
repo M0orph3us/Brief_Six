@@ -12,9 +12,9 @@ class UserController extends AbstractController
     #[Route('/profil/{username}', name: 'profil')]
     public function index(string $username, UsersRepository $usersRepo): Response
     {
-        $userProfil = $usersRepo->findOneBy(["username" => $username]);
+        $user = $usersRepo->findOneBy(["username" => $username]);
         return $this->render('user/index.html.twig', [
-            'userProfil' => $userProfil,
+            'user' => $user,
         ]);
     }
 }
