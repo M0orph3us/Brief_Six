@@ -2,22 +2,88 @@
 
 {% block title %}Profil
 {% endblock %}
+{% block javascript %}
+	{% block importmap %}
+		{{ parent() }}
+		{{ encore_entry_script_tags('user_profil') }}
+	{% endblock %}
+{% endblock %}
 
 {% block main %}
 	<main>
-		<div class="profil-container">
-			<h3>{{ user.username}}</h3>
-			{% if user.roles == ['ROLE_ADMIN'] %}
-				<p>role : admin</p>
-			{% else %}
-				<p>role : user</p>
-			{% endif %}
-			<p>created at :
-				{{ user.createdAt|date('d/m/Y') }}</p>
-			<p>threads :
-				{{ user.threads|length}}</p>
-			<p>responses :
-				{{ user.responses|length}}</p>
+		<div class="profil-card-container">
+			<div class="profil-card">
+				<h3>{{ user.username}}</h3>
+				{% if user.roles == ['ROLE_ADMIN'] %}
+					<p>
+						<span>role :
+						</span>
+						admin</p>
+				{% else %}
+					<p>
+						<span>role :
+						</span>
+						user</p>
+				{% endif %}
+				<p>
+					<span>created at :
+					</span>
+					{{ user.createdAt|date('d/m/Y') }}</p>
+				<p>
+					<span>threads :
+					</span>
+					{{ user.threads|length}}</p>
+				<p>
+					<span>responses :
+					</span>
+					{{ user.responses|length}}</p>
+				{% if app.user %}
+					<a href="{{ path('profil_edit', {id: user.id})}}">edit</a>
+				{% endif %}
+			</div>
+		</div>
+		<div class="btn-profil-container">
+			<button id="btn-all-threads">my threads</button>
+			<button id="btn-all-responses">my responses</button>
+		</div>
+		<div class="my-threads-container" id="my-threads-container">
+			<h2>my threads</h2>
+			{% for thread in threads %}
+				<a href="{{ path('threads', {id: thread.id}) }}">
+					<div class="my-thread-card">
+						<h3>{{ thread.title}}</h3>
+						<p>
+							<span>description :
+							</span>
+							{{ thread.description}}
+						</p>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+		<div class="my-responses-container" id="my-responses-container">
+			<h2>my responses</h2>
+			{% for response in responses %}
+				<a href="{{ path('threads', {id: response.threads.id }) }}">
+					<div class="my-response-card">
+						<h3>
+							<span>thread title :
+							</span>
+							{{ response.threads.title}}
+						</h3>
+						<p>
+							<span>thread description :
+							</span>
+							{{ response.threads.description}}
+						</p>
+						<p>
+							<span>response :
+							</span>
+							{{ response.body}}
+						</p>
+					</div>
+				</a>
+			{% endfor %}
 		</div>
 	</main>
 {% endblock %}

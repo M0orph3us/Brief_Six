@@ -11,7 +11,12 @@
 		<a href="{{ path('home') }}"><img src="{{ asset('imgs/logo_desktop.webp')}}" alt="logo desktop" draggable="false"></a>
 		<ul class="menu-desktop-container">
 			<li>
-				<a href="{{ path('home') }}" data-url="{{ path('home') }}" id="url-home">home</a>
+				{% if app.user %}
+					{% set connected = 'connected' %}
+				{% else %}
+					{% set connected = 'notConnected' %}
+				{% endif %}
+				<a href="{{ path('home') }}" data-url="{{ path('home') }}" data-connected="{{ connected }}" id="url-home">home</a>
 			</li>
 			{% if app.user %}
 				<li>

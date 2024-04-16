@@ -221,7 +221,7 @@ header {
 
 main {
   flex: 1;
-  margin-top: 80px;
+  margin-top: 100px;
   .threads-cards-container {
     padding: 20px 0;
     display: grid;
@@ -256,7 +256,7 @@ main {
               cursor: pointer;
               border-radius: 5px;
               border: 2px solid $text-color;
-              padding: 10px 20px;
+              padding: 5px 10px;
               color: $text-color;
               background-color: $crud-color;
               text-transform: uppercase;
@@ -294,7 +294,7 @@ main {
           color: $text-color;
         }
         p {
-          color: $text-color;
+          color: $second-text-color;
           padding: 10px 20px;
         }
         h4,
@@ -318,8 +318,8 @@ main {
               background-color: $crud-color;
               border-radius: 5px;
               border: 2px solid $text-color;
-              padding: 10px 5px;
               a {
+                padding: 2px 10px;
                 cursor: pointer;
                 border: none;
                 color: $text-color;
@@ -367,6 +367,85 @@ main {
       color: $text-color;
       font-weight: bold;
       background-color: $valid-color;
+    }
+  }
+  .profil-card-container {
+    display: flex;
+    justify-content: center;
+    .profil-card {
+      width: 70vw;
+      border: solid 2px $border-color;
+      border-radius: 15px;
+      background-color: $cards-bg-color;
+      h3 {
+        text-align: center;
+        padding: 5px 10px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        color: $title-color;
+        background-color: $title-cards-bg-color;
+      }
+      p {
+        color: $second-text-color;
+        text-transform: capitalize;
+        padding: 5px 10px;
+        span {
+          color: $text-color;
+        }
+      }
+    }
+  }
+  .btn-profil-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    padding: 20px;
+    button {
+      cursor: pointer;
+      padding: 5px 10px;
+      color: $text-color;
+      background-color: $valid-color;
+      border: solid 2px $text-color;
+      border-radius: 15px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+  .my-threads-container,
+  .my-responses-container {
+    padding: 30px;
+    display: none;
+    flex-direction: column;
+    row-gap: 20px;
+    h2 {
+      color: $text-color;
+      text-align: center;
+      text-transform: capitalize;
+    }
+
+    a > .my-thread-card,
+    .my-response-card {
+      background-color: $cards-bg-color;
+      border: 2px solid $border-color;
+      border-radius: 15px;
+      h3 {
+        text-align: center;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        color: $title-color;
+        background-color: $title-cards-bg-color;
+        text-transform: capitalize;
+      }
+      p {
+        color: $second-text-color;
+        padding: 5px 10px;
+      }
+      p > span {
+        color: $text-color;
+        text-transform: capitalize;
+        font-weight: 900;
+      }
     }
   }
 }

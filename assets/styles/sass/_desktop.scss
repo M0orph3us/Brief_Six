@@ -60,5 +60,31 @@ main {
       }
     }
   }
+  .profil-card-container {
+    .profil-card {
+      display: grid;
+      justify-content: space-between;
+      grid-template-areas:
+        "title title"
+        "role created"
+        "threads responses";
+    }
+
+    .profil-card > :nth-child(1) {
+      grid-area: title;
+    }
+    .profil-card > :nth-child(2) {
+      grid-area: role;
+    }
+    .profil-card > :nth-child(3) {
+      grid-area: created;
+    }
+    .profil-card > :nth-child(4) {
+      grid-area: threads;
+    }
+    .profil-card > :nth-child(5) {
+      grid-area: responses;
+    }
+  }
 }
 /*//////////////////////////////////// FOOTER ////////////////////////////////////////////*/

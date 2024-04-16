@@ -2,19 +2,49 @@
 
 namespace App\Controller;
 
-use App\Repository\UsersRepository;
+use App\Entity\Users;
+use App\Form\RegistrationFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/profil/{username}', name: 'profil')]
-    public function index(string $username, UsersRepository $usersRepo): Response
+    #[Route('/profil/{username}', name: 'profil', methods: ['GET'])]
+    public function index(Users $user): Response
     {
-        $user = $usersRepo->findOneBy(["username" => $username]);
+        $allThreads = $user->getThreads();
+        $allResponses = $user->getResponses();
         return $this->render('user/index.html.twig', [
             'user' => $user,
+            'threads' => $allThreads,
+            'responses' => $allResponses
         ]);
+    }
+
+    #[Route('profil/edit/{id}', name: 'profil_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, EntityManagerInterface $em, Users $user): Response
+    {
+
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('profil_edit', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('user/update.html.twig', [
+            'form' => $form,
+            'user' => $user
+        ]);
+    }
+
+    #[Route('profil/delete/{id}', name: 'profil_delete', methods: ['POST'])]
+    public function delete(Request $request, EntityManagerInterface $em, Users $user)
+    {
+        $em->remove($user);
+        $em->flush();
     }
 }

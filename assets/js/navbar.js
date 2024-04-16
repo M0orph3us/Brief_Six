@@ -16,22 +16,28 @@ export function createBurgerMenu() {
   const ulCreate = document.createElement("ul");
 
   const urlHome = document.querySelector("#url-home").getAttribute("data-url");
+  const isConnected = document
+    .querySelector("#url-home")
+    .getAttribute("data-connected");
   const liHome = document.createElement("li");
   const aHome = document.createElement("a");
   aHome.href = urlHome;
   aHome.textContent = "home";
   liHome.append(aHome);
 
-  // const urlCreateThread = document
-  //   .querySelector("#url-createdThread")
-  //   .getAttribute("data-url");
-  const liThread = document.createElement("li");
-  const aThread = document.createElement("a");
-  // aThread.href = urlCreateThread;
-  aThread.textContent = "create thread";
-  liThread.append(aThread);
+  if (isConnected === "connected") {
+    // const urlCreateThread = document
+    //   .querySelector("#url-createdThread")
+    //   .getAttribute("data-url");
+    const liThread = document.createElement("li");
+    const aThread = document.createElement("a");
+    // aThread.href = urlCreateThread;
+    aThread.textContent = "create thread";
+    liThread.append(aThread);
+    ulCreate.append(liThread);
+  }
 
-  ulCreate.append(liHome, liThread);
+  ulCreate.prepend(liHome);
   menuMobileContainer.append(ulCreate);
   divMenuBurgerContainer.append(XIcon, menuMobileContainer);
 
