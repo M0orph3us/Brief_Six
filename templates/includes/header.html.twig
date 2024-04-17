@@ -20,7 +20,7 @@
 			</li>
 			{% if app.user %}
 				<li>
-					<a href="" data-url="" id="url-createdThread">created thread</a>
+					<a href="{{ path('thread_new') }}" data-url="{{ path('thread_new') }}" id="url-createdThread">created thread</a>
 				</li>
 			{% endif %}
 		</ul>

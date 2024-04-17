@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Thread
+{% endblock %}
+
+{% block main %}
+	<main>
+		<h1>New Thread</h1>
+
+		{{ include('threads/_form.html.twig')}}
+		<a href="{{ path('home') }}">back to list</a>
+	</main>
+{% endblock %}

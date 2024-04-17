@@ -8,19 +8,19 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ThreadFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('status')
-            ->add('title')
-            ->add('description')
-            ->add('body')
+            ->add('title', TextType::class, [])
+            ->add('description', TextType::class, [])
+            ->add('body', TextType::class, [])
             ->add('categories', EntityType::class, [
                 'class' => Categories::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
                 'multiple' => true,
             ]);
     }

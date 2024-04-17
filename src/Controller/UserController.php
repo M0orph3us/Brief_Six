@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Form\RegistrationFormType;
+use DateTimeImmutable;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +33,10 @@ class UserController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $timezone = new DateTimeZone('Europe/Paris');
+            $user->setUpdatedAt(new DateTimeImmutable('now', $timezone));
             $em->flush();
+            $this->addFlash('success', '');
 
             return $this->redirectToRoute('profil_edit', [], Response::HTTP_SEE_OTHER);
         }
@@ -46,5 +51,6 @@ class UserController extends AbstractController
     {
         $em->remove($user);
         $em->flush();
+        $this->addFlash('success', '');
     }
 }

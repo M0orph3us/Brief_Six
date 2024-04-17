@@ -18,8 +18,7 @@ class Threads
     private ?int $id = null;
 
     #[ORM\Column(length: 10)]
-    #[Assert\NotBlank()]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(min: 4)]
     private ?string $status = null;
 
     #[ORM\Column(length: 100)]
@@ -38,11 +37,9 @@ class Threads
     private ?string $body = null;
 
     #[ORM\Column]
-    #[Assert\DateTime()]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Assert\DateTime()]
     private ?\DateTimeInterface $updated_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'threads')]

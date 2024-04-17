@@ -26,12 +26,12 @@ export function createBurgerMenu() {
   liHome.append(aHome);
 
   if (isConnected === "connected") {
-    // const urlCreateThread = document
-    //   .querySelector("#url-createdThread")
-    //   .getAttribute("data-url");
+    const urlCreateThread = document
+      .querySelector("#url-createdThread")
+      .getAttribute("data-url");
     const liThread = document.createElement("li");
     const aThread = document.createElement("a");
-    // aThread.href = urlCreateThread;
+    aThread.href = urlCreateThread;
     aThread.textContent = "create thread";
     liThread.append(aThread);
     ulCreate.append(liThread);
