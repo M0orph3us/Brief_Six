@@ -173,11 +173,9 @@ class Threads
 
     public function removeResponse(Responses $response): static
     {
-        if ($this->responses->removeElement($response)) {
-            // set the owning side to null (unless already changed)
-            if ($response->getThreads() === $this) {
-                $response->setThreads(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->responses->removeElement($response) && $response->getThreads() === $this) {
+            $response->setThreads(null);
         }
 
         return $this;

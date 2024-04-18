@@ -23,12 +23,9 @@ class Responses
     private ?string $body = null;
 
     #[ORM\Column]
-    #[Assert\NotNull()]
-    #[Assert\DateTime()]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Assert\DateTime()]
     private ?\DateTimeInterface $updated_at = null;
 
     /**
@@ -111,11 +108,9 @@ class Responses
 
     public function removeVote(Votes $vote): static
     {
-        if ($this->votes->removeElement($vote)) {
-            // set the owning side to null (unless already changed)
-            if ($vote->getResponses() === $this) {
-                $vote->setResponses(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->votes->removeElement($vote) && $vote->getResponses() === $this) {
+            $vote->setResponses(null);
         }
 
         return $this;

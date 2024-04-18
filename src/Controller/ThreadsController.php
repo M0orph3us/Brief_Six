@@ -17,11 +17,17 @@ use DateTimeZone;
 class ThreadsController extends AbstractController
 {
     #[Route('/threads/detail-{id}', name: 'threads', methods: ['GET'])]
-    public function index(ThreadsRepository $threadsRepo, int $id): Response
+    public function index(ThreadsRepository $threadsRepo, ResponsesRepository $reponseRepo, int $id): Response
     {
         $thread = $threadsRepo->find($id);
+        $responses = $thread->getResponses();
+        foreach ($responses as $key => $value) {
+            $idResponse = $responses[$key]->getId();
+            $arrayVoteTrue[$key] = $reponseRepo->getVoteTrue($idResponse);
+        }
         $user = $thread->getUsers();
         $categories = $thread->getCategories();
+
         $categoriesTitle = [];
         foreach ($categories as $category) {
             $categoriesTitle[] = $category->getTitle();
@@ -29,10 +35,12 @@ class ThreadsController extends AbstractController
 
         return $this->render('threads/index.html.twig', [
             'thread' => $thread,
-            'responses' => $thread->getResponses(),
+            'responses' => $responses,
             'username' => $user->getUsername(),
-            'userId' => $user->getId(),
-            'categories' => $categoriesTitle
+            'userId_thread' => $user->getId(),
+            'categories' => $categoriesTitle,
+            'votes' => $arrayVoteTrue
+
         ]);
     }
 
@@ -87,7 +95,7 @@ class ThreadsController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $thread->getId(), $request->getPayload()->get('_token'))) {
             $allResponses = $reponseRepo->findBy(['id' => $id]);
             if ($allResponses) {
-                foreach ($allResponses as $key => $value) {
+                foreach (array_keys($allResponses) as $key) {
 
                     $thread->removeResponse($allResponses[$key]);
                 }

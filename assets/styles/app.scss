@@ -286,13 +286,20 @@ main {
         border: 2px solid $border-color;
         border-radius: 15px;
         padding-top: 20px;
-        i {
+        .votes-container {
           float: right;
           margin-right: 20px;
           margin-top: 10px;
-          cursor: pointer;
-          color: $text-color;
+          span {
+            color: $text-color;
+            margin-left: 10px;
+          }
+          i {
+            cursor: pointer;
+            color: $text-color;
+          }
         }
+
         p {
           color: $second-text-color;
           padding: 10px 20px;

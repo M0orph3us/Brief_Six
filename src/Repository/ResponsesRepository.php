@@ -21,8 +21,43 @@ class ResponsesRepository extends ServiceEntityRepository
         parent::__construct($registry, Responses::class);
     }
 
-    public function numberOfResponses()
+    /**
+     * @return array<string, mixed> | boolean
+     */
+    public function getVoteByResponse(int $userId, int $responseId): array | bool
     {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql =
+            "SELECT v.vote,v.id
+            FROM votes v
+            JOIN users u ON
+            v.user_id = u.id
+            JOIN responses r ON
+            v.responses_id = r.id
+            WHERE u.id = :userId AND r.id = :responseId";
+
+        $resultSet = $conn->executeQuery($sql, [
+            'userId' => $userId,
+            'responseId' => $responseId
+        ]);
+        return $resultSet->fetchAssociative();
+    }
+
+
+    public function getVoteTrue(int $responseId): int
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql =
+            "SELECT count(v.vote)
+            FROM votes v 
+            JOIN responses r ON
+            v.responses_id = r.id
+            WHERE v.vote = true AND r.id = :responseId";
+
+        $resultSet = $conn->executeQuery($sql, [
+            'responseId' => $responseId
+        ]);
+        return $resultSet->fetchOne();
     }
 
     //    /**

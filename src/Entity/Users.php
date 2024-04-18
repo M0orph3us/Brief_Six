@@ -52,11 +52,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column]
-    #[Assert\DateTime()]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Assert\DateTime()]
     private ?\DateTimeInterface $updated_at = null;
 
     /**
@@ -216,11 +214,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeVote(Votes $vote): static
     {
-        if ($this->votes->removeElement($vote)) {
-            // set the owning side to null (unless already changed)
-            if ($vote->getUser() === $this) {
-                $vote->setUser(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->votes->removeElement($vote) && $vote->getUser() === $this) {
+            $vote->setUser(null);
         }
 
         return $this;
@@ -246,11 +242,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeThread(Threads $thread): static
     {
-        if ($this->threads->removeElement($thread)) {
-            // set the owning side to null (unless already changed)
-            if ($thread->getUsers() === $this) {
-                $thread->setUsers(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->threads->removeElement($thread) && $thread->getUsers() === $this) {
+            $thread->setUsers(null);
         }
 
         return $this;
@@ -276,11 +270,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeResponse(Responses $response): static
     {
-        if ($this->responses->removeElement($response)) {
-            // set the owning side to null (unless already changed)
-            if ($response->getUsers() === $this) {
-                $response->setUsers(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->responses->removeElement($response) && $response->getUsers() === $this) {
+            $response->setUsers(null);
         }
 
         return $this;

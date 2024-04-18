@@ -38,19 +38,21 @@ class UserController extends AbstractController
             $em->flush();
             $this->addFlash('success', '');
 
-            return $this->redirectToRoute('profil_edit', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('profil', ['username' => $user->getUsername()], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('user/update.html.twig', [
+        return $this->render('user/edit.html.twig', [
             'form' => $form,
             'user' => $user
         ]);
     }
 
     #[Route('profil/delete/{id}', name: 'profil_delete', methods: ['POST'])]
-    public function delete(Request $request, EntityManagerInterface $em, Users $user)
+    public function delete(Request $request, EntityManagerInterface $em, Users $user): void
     {
-        $em->remove($user);
-        $em->flush();
-        $this->addFlash('success', '');
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->getPayload()->get('_token'))) {
+            $em->remove($user);
+            $em->flush();
+            $this->addFlash('success', '');
+        }
     }
 }

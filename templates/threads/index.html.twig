@@ -2,6 +2,12 @@
 
 {% block title %}Thread Detail
 {% endblock %}
+{% block javascript %}
+	{% block importmap %}
+		{{ parent() }}
+		{{ encore_entry_script_tags('vote') }}
+	{% endblock %}
+{% endblock %}
 
 {% block main %}
 	<main>
@@ -46,15 +52,17 @@
 						</p>
 						<div class="actions-container">
 							<ul>
-								<li>
-									<button type="button" id="btn-reply">reply</button>
-								</li>
-								<li>
-									<a href="{{path('thread_edit',{id:thread.id})}}">edit</a>
-								</li>
-								<li>
-									<a href="">delete</a>
-								</li>
+								{% if app.user %}
+									<li>
+										<button type="button" id="btn-reply">reply</button>
+									</li>
+								{% endif %}
+								{% if app.user.id == userId_thread %}
+									<li>
+										<a href="{{path('thread_edit',{id:thread.id})}}">edit</a>
+									</li>
+								{% endif %}
+
 							</ul>
 						</div>
 					</div>
@@ -67,7 +75,12 @@
 									<span>author :
 									</span>
 									{{ (response.users).username }}</a>
-								<i class="fa-regular fa-heart fa-xl"></i>
+								<div class="votes-container">
+									<i class="fa-regular fa-heart fa-xl" id="btn-vote" data-id="{{ response.id }}"></i>
+									{% for vote in votes %}
+										<span>{{ vote }}</span>
+									{% endfor %}
+								</div>
 								<h4>reponse :
 								</h4>
 								<p>{{ response.body }}</p>
