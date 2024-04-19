@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Response
+{% endblock %}
+
+{% block main %}
+	<main>
+		<h1>New Response</h1>
+		{{ include('responses/_form.html.twig')}}
+		<a href="{{ path('threads', {'id': threadId}) }}">back to thread</a>
+	</main>
+{% endblock %}

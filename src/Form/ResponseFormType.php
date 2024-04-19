@@ -12,7 +12,7 @@ class ResponseFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('body');
+            ->add('body',);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,0 +1,6 @@
+{{ form_errors(form)}}
+{{ form_start(form)}}
+{{ form_row(form.body)}}
+<button type="submit">{{ button_label|default('Save') }}
+</button>
+{{ form_end(form)}}

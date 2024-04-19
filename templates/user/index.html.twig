@@ -37,8 +37,10 @@
 					<span>responses :
 					</span>
 					{{ user.responses|length}}</p>
-				{% if app.user.id == user.id %}
-					<a href="{{ path('profil_edit', {id: user.id})}}">edit</a>
+				{% if app.user %}
+					{% if app.user.id == user.id %}
+						<a href="{{ path('profil_edit', {id: user.id})}}">edit</a>
+					{% endif %}
 				{% endif %}
 			</div>
 		</div>

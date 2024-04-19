@@ -35,7 +35,7 @@ class Responses
     private Collection $votes;
 
     #[ORM\ManyToOne(inversedBy: 'responses')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Users $users = null;
 
     #[ORM\ManyToOne(inversedBy: 'responses')]

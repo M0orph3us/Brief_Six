@@ -54,43 +54,47 @@
 							<ul>
 								{% if app.user %}
 									<li>
-										<button type="button" id="btn-reply">reply</button>
+										<a href="{{ path('response_new', {'id': thread.id})}}">
+											<button type="button" id="btn-reply">reply</button>
+										</a>
 									</li>
 								{% endif %}
-								{% if app.user.id == userId_thread %}
-									<li>
-										<a href="{{path('thread_edit',{id:thread.id})}}">edit</a>
-									</li>
+								{% if app.user %}
+									{% if app.user.id == user.id %}
+										<li>
+											<a href="{{ path('thread_edit',{id:thread.id}) }}">edit</a>
+										</li>
+									{% endif %}
 								{% endif %}
-
 							</ul>
 						</div>
 					</div>
 					<div class="thread-responses-container">
 						<h3>responses :
 						</h3>
-						<div class="thread-response-card">
-							{% for response in responses %}
-								<a href="{{ path('profil', {username: (response.users).username}) }}">
-									<span>author :
-									</span>
-									{{ (response.users).username }}</a>
-								<div class="votes-container">
-									<i class="fa-regular fa-heart fa-xl" id="btn-vote" data-id="{{ response.id }}"></i>
-									{% for vote in votes %}
+						{% for response in responses %}
+							{% for vote in votes %}
+								<div class="thread-response-card">
+									<a href="{{ path('profil', {username: (response.users).username}) }}">
+										<span>author :
+										</span>
+										{{ (response.users).username }}</a>
+									<div class="votes-container">
+										<i class="fa-regular fa-heart fa-xl" id=" btn-vote" data-id=" {{ response.id }} "></i>
 										<span>{{ vote }}</span>
-									{% endfor %}
-								</div>
-								<h4>reponse :
-								</h4>
-								<p>{{ response.body }}</p>
+									</div>
+									<h4>reponse :
+									</h4>
+									<p>{{ response.body }}</p>
+
+									<div class="actions-response-container">
+										<ul>
+											<li><a href="">edit</a></li>
+											<li><a href="">delete</a></li>
+										</ul>
+									</div>
+								{% endfor %}
 							{% endfor %}
-							<div class="actions-response-container">
-								<ul>
-									<li><a href="">edit</a></li>
-									<li><a href="">delete</a></li>
-								</ul>
-							</div>
 						</div>
 					</div>
 				</div>

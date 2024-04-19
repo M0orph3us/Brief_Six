@@ -60,6 +60,26 @@ class ResponsesRepository extends ServiceEntityRepository
         return $resultSet->fetchOne();
     }
 
+    public function getvote(int $userId, int $responseId): bool
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql =
+            "SELECT v.vote
+        FROM votes v
+        JOIN users u ON
+        v.user_id = u.id
+        JOIN responses r ON
+        v.response_id = r.id
+        WHERE u.id = :userId AND r.id = :responseId";
+
+        $resultSet = $conn->executeQuery($sql, [
+            'responseId' => $responseId,
+            'userId' => $userId
+        ]);
+        return $resultSet->fetchOne();
+    }
+
     //    /**
     //     * @return Responses[] Returns an array of Responses objects
     //     */

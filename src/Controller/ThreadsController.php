@@ -16,16 +16,21 @@ use DateTimeZone;
 
 class ThreadsController extends AbstractController
 {
-    #[Route('/threads/detail-{id}', name: 'threads', methods: ['GET'])]
+    #[Route('/threads/{id}/detail', name: 'threads', methods: ['GET'])]
     public function index(ThreadsRepository $threadsRepo, ResponsesRepository $reponseRepo, int $id): Response
     {
         $thread = $threadsRepo->find($id);
         $responses = $thread->getResponses();
-        foreach ($responses as $key => $value) {
-            $idResponse = $responses[$key]->getId();
-            $arrayVoteTrue[$key] = $reponseRepo->getVoteTrue($idResponse);
+        foreach ($responses as $response) {
+            $idResponse = $response->getId();
+            $arrayVoteTrue[] = $reponseRepo->getVoteTrue($idResponse);
         }
         $user = $thread->getUsers();
+        if ($user === null) {
+            $username = 'inconnue';
+        } else {
+            $username = $user->getUsername();
+        }
         $categories = $thread->getCategories();
 
         $categoriesTitle = [];
@@ -36,10 +41,9 @@ class ThreadsController extends AbstractController
         return $this->render('threads/index.html.twig', [
             'thread' => $thread,
             'responses' => $responses,
-            'username' => $user->getUsername(),
-            'userId_thread' => $user->getId(),
-            'categories' => $categoriesTitle,
-            'votes' => $arrayVoteTrue
+            'username' => $username,
+            'user' => $user,
+            'categories' => $categoriesTitle
 
         ]);
     }
@@ -68,7 +72,7 @@ class ThreadsController extends AbstractController
         ]);
     }
 
-    #[Route('threads/edit/{id}', name: 'thread_edit', methods: ['GET', 'POST'])]
+    #[Route('threads/{id}/edit', name: 'thread_edit', methods: ['GET', 'POST'])]
     public function edit(EntityManagerInterface $em, Request $request, Threads $thread)
     {
         $form = $this->createForm(ThreadFormType::class, $thread);
@@ -88,16 +92,15 @@ class ThreadsController extends AbstractController
         ]);
     }
 
-    #[Route('threads/delete/{id}', name: 'thread_delete', methods: ['POST'])]
-    public function delete(EntityManagerInterface $em, Request $request, Threads $thread, ResponsesRepository $reponseRepo, int $id)
+    #[Route('threads/{id}/delete', name: 'thread_delete', methods: ['POST'])]
+    public function delete(EntityManagerInterface $em, Request $request, Threads $thread, int $id)
     {
 
         if ($this->isCsrfTokenValid('delete' . $thread->getId(), $request->getPayload()->get('_token'))) {
-            $allResponses = $reponseRepo->findBy(['id' => $id]);
-            if ($allResponses) {
-                foreach (array_keys($allResponses) as $key) {
-
-                    $thread->removeResponse($allResponses[$key]);
+            $allResponses = $thread->getResponses();
+            if (!empty($allResponses)) {
+                foreach ($allResponses as $response) {
+                    $thread->removeResponse($response);
                 }
             }
             $em->remove($thread);
